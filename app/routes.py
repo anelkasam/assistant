@@ -62,6 +62,7 @@ def login():
 
     form = LoginForm()
     if form.is_submitted():
+        print(f'Submit with {form.name.data}, {form.password.data}')
         user = User.query.filter_by(name=form.name.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid name or password!')

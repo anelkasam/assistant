@@ -23,3 +23,4 @@ build
 *.egg-info
 .python-version
 .flaskenv
+*.db

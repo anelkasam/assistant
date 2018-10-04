@@ -7,20 +7,15 @@ from app.models import User, Family
 
 class RegistrationForm(FlaskForm):
     name = StringField('Enter your name', validators=[DataRequired()])
-    email = StringField('Email (optional)', validators=[Email()])
+    email = StringField('Email', validators=[Email(), DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
-    def validate_username(self, name):
-        user = User.query.filter_by(name=name.data).first()
-        if user is not None:
-            raise ValidationError('Please use a different username.')
-
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError('Please use a different email address.')
+            raise ValidationError('User with given email address is already exist.')
 
 
 class LoginForm(FlaskForm):

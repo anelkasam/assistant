@@ -1,5 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p><img src="{{ user.avatar(32) }}"> Hello, {{ user.name }}!</p>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Profile page</li>
+        {% if user.family %}
+            <li class="breadcrumb-item">
+                Connect to family: <a href="{{ url_for('family', family_id=user.family_id) }}">{{ user.family.lastname }}</a>
+            </li>
+        {% endif %}
+    </ol>
+    <table>
+        <tr valign="top">
+            <td><img src="{{ user.avatar(128) }}"></td>
+            <td>
+                <h1>{{ user.name }}</h1>
+                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+            </td>
+        </tr>
+    </table>
 {% endblock %}
