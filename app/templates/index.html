@@ -2,4 +2,28 @@
 
 {% block content %}
     <h2>Welcome to the assistant!</h2>
+    {% if current_user.is_anonymous %}
+        <p>Current user is anonymous! </p>
+    {% else %}
+        {% if form %}
+            You may create new family.
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.lastname.label }}<br>
+                    {{ form.lastname(size=32) }}
+                    {% for error in form.lastname.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>{{ form.submit() }}</p>
+            </form>
+            Or connect to existing by token from admin.
+        {% else %}
+            <a href="{{ url_for('user', user_id=current_user.id) }}">Your Profile</a>
+            {% if current_user.family_id %}
+                <a href="{{ url_for('family', family_id=current_user.family_id) }}">Your family Profile</a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
 {% endblock %}
