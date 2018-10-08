@@ -4,15 +4,15 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="index.html">Dashboard</a>
+            <a href="../index.html">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">500 Error</li>
     </ol>
 
     <!-- Page Content -->
-    <h1 class="display-1">404</h1>
+    <h1 class="display-1">500</h1>
     <p class="lead">Something went wrong. Admin will check and fix it in previous time. You can
         <a href="javascript:history.back()">go back</a>
         to the previous page, or
-        <a href="{{ url_for('index') }}">return home</a>.</p>
+        <a href="{{ url_for('main.index') }}">return home</a>.</p>
 {% endblock %}
