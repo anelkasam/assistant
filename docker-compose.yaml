@@ -18,8 +18,8 @@ services:
     build: ./nginx
     ports:
       - 80:80
-    volumes:
-      - /www/static
+#    volumes:
+#      - /www/static
     depends_on:
       - web
 

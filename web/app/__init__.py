@@ -19,12 +19,12 @@ login = LoginManager()
 login.login_view = 'auth.login'
 
 
-def create_app():
+def create_app(config=os.getenv('APP_SETTINGS')):
     """
     Create a Flask application instance, and eliminate the global variable
     """
     app = Flask(__name__)
-    app.config.from_object(os.getenv('APP_SETTINGS'))
+    app.config.from_object(config)
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -43,6 +43,10 @@ def create_app():
 
     config_logs(app)
 
+    @app.shell_context_processor
+    def ctx():
+        return {'app': app, 'db': db}
+
     return app
 
 
@@ -51,7 +55,7 @@ def config_logs(app):
     Configure logger to send emails and write them into the file
     """
     if not app.debug and not app.testing:
-        if app.config['MAIL_SERVER']:
+        if app.config.get('MAIL_SERVER'):
             auth = None
             if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
                 auth = (app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])

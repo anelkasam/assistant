@@ -26,6 +26,7 @@ class BaseConfig:
     SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRES_URL')
 
 
+
 class DevelopmentConfig(BaseConfig):
     pass
 
