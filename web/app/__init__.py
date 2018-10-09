@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask
-from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
@@ -20,12 +19,12 @@ login = LoginManager()
 login.login_view = 'auth.login'
 
 
-def create_app(config_class=Config):
+def create_app():
     """
     Create a Flask application instance, and eliminate the global variable
     """
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(os.getenv('APP_SETTINGS'))
 
     db.init_app(app)
     migrate.init_app(app, db)
