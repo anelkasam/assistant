@@ -3,26 +3,21 @@ import unittest
 from flask.cli import FlaskGroup
 
 from app import create_app, db
+from app.auth.models import User
 
-import os
-from dotenv import load_dotenv
-
-basedir = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(basedir, '.env'))
 
 app = create_app()
 cli = FlaskGroup(create_app=create_app)
 
 
-@cli.command()
+@cli.command('recreate_db')
 def recreate_db():
-    """run db.drop_all(), db.create_all()"""
     db.drop_all()
     db.create_all()
     db.session.commit()
 
 
-@cli.command()
+@cli.command('test')
 def test():
     """ Runs the tests without code coverage"""
     tests = unittest.TestLoader().discover('tests', pattern='test*.py')

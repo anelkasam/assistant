@@ -23,12 +23,10 @@ class BaseConfig:
     POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
     POSTGRES_USER = os.environ.get('POSTGRES_USER')
     POSTGRES_DB = os.environ.get('POSTGRES_DB')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRES_URL')
-
 
 
 class DevelopmentConfig(BaseConfig):
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRES_URL')
 
 
 class TestConfig(BaseConfig):
@@ -37,4 +35,4 @@ class TestConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRES_URL')

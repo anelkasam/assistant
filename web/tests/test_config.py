@@ -5,6 +5,7 @@ from flask import current_app
 from flask_testing import TestCase
 
 from app import create_app
+
 app = create_app()
 
 
@@ -22,7 +23,7 @@ class TestDevelopmentConfig(TestCase):
         )
 
 
-class TestTestingConfig(TestCase):
+class TestTestConfig(TestCase):
     def create_app(self):
         app.config.from_object('config.TestConfig')
         return app

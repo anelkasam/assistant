@@ -1,0 +1,35 @@
+version: '3.6'
+
+services:
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    volumes:
+    - './web:/usr/src/app'
+    expose:
+    - '5000'
+    env_file:
+    - web/.env
+    depends_on:
+    - postgres
+
+  postgres:
+    build:
+      context: ./postgresql
+      dockerfile: Dockerfile
+    ports:
+    - 5435:5432
+    env_file:
+    - postgresql/.env
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+    - 80:80
+    depends_on:
+    - web
