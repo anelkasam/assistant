@@ -3,13 +3,16 @@ version: '3.6'
 services:
 
   web:
+    restart: always
     build:
       context: ./web
       dockerfile: Dockerfile
     volumes:
     - './web:/usr/src/app'
-    expose:
-    - '5000'
+    ports:
+      - 5001:5000
+#    expose:
+#    - '5000'
     env_file:
     - web/.env
     depends_on:
@@ -24,12 +27,12 @@ services:
     env_file:
     - postgresql/.env
 
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-    - 80:80
-    depends_on:
-    - web
+#  nginx:
+#    restart: always
+#    build:
+#      context: ./nginx
+#      dockerfile: Dockerfile
+#    ports:
+#    - 80:80
+#    depends_on:
+#    - web
