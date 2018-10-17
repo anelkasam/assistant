@@ -12,6 +12,7 @@ class RegisterForm(FlaskForm):
     password2 = PasswordField('repeat password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
+    @staticmethod
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
@@ -26,11 +27,14 @@ class LoginForm(FlaskForm):
 
 
 class ResetPasswordRequestForm(FlaskForm):
-    pass
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
 
 
 class ResetPasswordForm(FlaskForm):
-    pass
+    password = PasswordField('New password', validators=[DataRequired()])
+    password2 = PasswordField('Repeat password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')
 
 
 class EditProfileForm(FlaskForm):

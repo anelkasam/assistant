@@ -88,10 +88,10 @@
                 {% if current_user.is_anonymous %}
                     <a class="dropdown-item" href="{{ url_for('auth.login') }}">Login</a>
                 {% else %}
-                    <a class="dropdown-item" href="{{ url_for('main.user', user_id=current_user.id) }}">User Profile</a>
+{#                    <a class="dropdown-item" href="{{ url_for('main.user', user_id=current_user.id) }}">User Profile</a>#}
                     {% if current_user.family_id %}
-                        <a class="dropdown-item" href="{{ url_for('main.family', family_id=current_user.family_id) }}">Family
-                            Profile</a>
+{#                        <a class="dropdown-item" href="{{ url_for('main.family', family_id=current_user.family_id) }}">Family#}
+{#                            Profile</a>#}
                     {% endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a>

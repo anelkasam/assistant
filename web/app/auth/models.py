@@ -1,3 +1,7 @@
+import jwt
+
+from time import time
+from flask import current_app
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -28,6 +32,15 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in},
+                          current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        user_id = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256']).get('reset_password')
+        return user_id and User.query.get(user_id)
 
     def __repr__(self):
         return f'User: {self.name}'
