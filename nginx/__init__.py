@@ -1,0 +1,1 @@
+# http://www.patricksoftwareblog.com/how-to-configure-nginx-for-a-flask-web-application/
